@@ -314,7 +314,7 @@ router.delete("/education/:edu_id", auth, async (req, res) => {
 // @access public
 router.get("/github/:username", async (req, res) => {
   try {
-    const uri = `https://api.github.com/${
+    const uri = `https://api.github.com/users/${
       req.params.username
     }/repos?per_page=5&sort=created:asc&client_id=${config.get(
       "githubClientId"
@@ -322,17 +322,15 @@ router.get("/github/:username", async (req, res) => {
     const options = {
       headers: { "user-agent": "node.js" },
       method: "GET",
+      responseType: "json",
     };
 
     const response = await got(uri, options);
-    console.log(response.body);
-    return res.status(200);
     if (!response)
       return res.status(404).json({ msg: "no Github username found" });
-    console.log(response.body);
-    res.json(JSON.parse(response.body));
+    res.status(200).json(JSON.parse(JSON.stringify(response.body)));
   } catch (err) {
-    console.log(err.response.body);
+    console.log(err.message);
     res.status(500).send("server error");
   }
 });
