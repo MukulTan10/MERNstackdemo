@@ -20,7 +20,7 @@ const PostSchema = new Schema({
     //array of object
     {
       user: {
-        type: Schema.Types.ObjectId, //so only one user has one comment
+        type: Schema.Types.ObjectId, //so only one user has one like
         ref: "users",
       },
     },
