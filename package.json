@@ -4,8 +4,11 @@
   "description": "Social Network for developers",
   "main": "server.js",
   "scripts": {
-    "start":"noder server",
-    "dev":"nodemon server"
+    "start":"node server",
+    "dev":"nodemon server",
+    "client" :"npm start --prefix client",
+    "app":"concurrently \"npm run dev\" \"npm run client\" "
+    
   },
   "author": "Mukul Tanjea",
   "license": "MIT",

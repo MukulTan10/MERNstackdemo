@@ -1,0 +1,38 @@
+react-router-dom ---for managing routes in react
+redux --- for managing react components state ,independent from react
+react-redux ---bindings between redux and react, that creates containers
+redux-thunk---middleware that helps you with async actions
+redux-devtools-extension --- devtools of redux
+react-moment --- so can use moment within a components
+
+adding proxy in react in package.json so i don't have to do again and again http://localhost:500/route
+so adding in client package.json file
+
+------Why Switch---------------
+
+    <Switch> returns only one first matching route.
+
+    exact returns any number of routes that match exactly.
+
+    For example:
+
+    <Switch>
+    <Route exact path="/animals" component={Animals} />
+    <Route path="/animals/fish" component={Fish} />
+    <Route component={Missing} />
+    </Switch>
+    <Route path="/animals" component={Order} />
+    If the Missing component was not inside a <Switch>, it would be returned on every single route.
+
+    With exact, the "/animals" route will not catch every route containing "/animals" such as "animals/fish".
+
+    Without exact, the "/animals/fish" route will also return the Fish component for "animals/fish/cod", "/animals/fish/salmon", etc.
+
+    Being outside the <Switch> statement and without exact, the Order component is rendered on every path containing "/animals".
+-----------End------------------
+
+---------anchor tag vs React Link tag--------------------
+ The path in your anchor tag is a relative path while that one in the Link is absolute.
+ anchor will trigger page refresh hance resetting sates and all, Link component does not+benfits of react component state and all things,basiclly preventDefault
+
+---------------------------------------------------------
