@@ -36,3 +36,5 @@ so adding in client package.json file
  anchor will trigger page refresh hance resetting sates and all, Link component does not+benfits of react component state and all things,basiclly preventDefault
 
 ---------------------------------------------------------
+
+Redux Thunk is a middleware that lets you call action creators that return a function instead of an action object

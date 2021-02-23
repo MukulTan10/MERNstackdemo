@@ -1,8 +1,10 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
-// import axios from "axios";
+import { connect } from "react-redux"; //conectting to redux
+import { setAlert } from "../../actions/alert";
+import PropTypes from "prop-types";
 
-const Register = () => {
+const Register = ({ setAlert }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,7 +20,7 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log("Passwords do not match");
+      setAlert("Passwords do not match", "danger");
     } else {
     }
   };
@@ -81,4 +83,7 @@ const Register = () => {
   );
 };
 
-export default Register;
+Register.prototype = {
+  setAlert: PropTypes.func.isRequired,
+};
+export default connect(null, { setAlert })(Register); //connect parameter state you wwanna map,actions,this action can be use as props
