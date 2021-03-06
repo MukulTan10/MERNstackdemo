@@ -1,9 +1,16 @@
 const express = require("express");
 const app = express();
+const cors =require('cors');
 const connectDB = require("./config/db");
 
 //Connect Database
 connectDB();
+var corsOptions = {
+  origin: 'http://localhost:3000',
+}
+
+//for cors (Cross origin resource sharing
+app.use(cors(corsOptions));
 
 //Intit Middleware (for Body Parsing)
 app.use(express.json({ extended: false }));

@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link ,Redirect} from "react-router-dom";
 import { connect } from "react-redux"; //conectting to redux
 import { setAlert } from "../../actions/alert";
+import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register,isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -22,8 +23,13 @@ const Register = ({ setAlert }) => {
     if (password !== password2) {
       setAlert("Passwords do not match", "danger");
     } else {
+      register({ name, email, password });
     }
   };
+ 
+  if(isAuthenticated){
+    return <Redirect to="/dashboard" />
+  }
   return (
     <Fragment>
       <h1 className="large text-primary">Sign Up</h1>
@@ -85,5 +91,11 @@ const Register = ({ setAlert }) => {
 
 Register.prototype = {
   setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated:PropTypes.bool,
 };
-export default connect(null, { setAlert })(Register); //connect parameter state you wwanna map,actions,this action can be use as props
+
+const mapStateToProps =state=>({ 
+  isAuthenticated:state.auth.isAuthenticated
+})
+export default connect(mapStateToProps, { setAlert, register })(Register); //connect parameter state you wwanna map,actions,this action can be use as props
