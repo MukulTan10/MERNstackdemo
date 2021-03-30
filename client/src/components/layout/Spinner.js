@@ -5,7 +5,7 @@ function Spinner(props) {
   return (
     <Fragment>
       <img
-        src="../img/loader.gif"
+        src="../../img/loader.gif"
         style={{ width: "200px", margin: "auto", display: "block" }}
         alt="Loading..."
       />

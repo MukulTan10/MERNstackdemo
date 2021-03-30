@@ -1,10 +1,12 @@
 import axios from "axios";
 import {
   GET_PROFILE,
+  GET_PROFILES,
   PROFILE_ERROR,
   UPDATE_PROFILE,
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
+  GET_REPOS,
 } from "../actions/types";
 import { setAlert } from "./alert";
 
@@ -37,6 +39,69 @@ export const getCurrentProfile = () => async (dispatch) => {
       });
   } catch (err) {
     console.log("Profile Error");
+  }
+};
+
+//Get all profiles
+export const getProfiles = () => async (dispatch) => {
+  dispatch({ type: CLEAR_PROFILE });
+  try {
+    const res = axios
+      .get("/api/profile/")
+      .then((response) => {
+        if (response.data.errors) return Promise.reject(response);
+
+        dispatch({
+          type: GET_PROFILES,
+          payload: response.data,
+        });
+      })
+      .catch((err) => {
+        // if (err.data.errors) {
+        //   let errors = err.data.errors;
+        //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+        // }
+        dispatch({
+          type: PROFILE_ERROR,
+          payload: {
+            msg: err.response.statusText,
+            status: err.response.status,
+          },
+        });
+      });
+  } catch (err) {
+    console.log("Get all Profiles Error");
+  }
+};
+
+//Get  profile by Id(user)
+export const getProfileById = (id) => async (dispatch) => {
+  try {
+    const res = axios
+      .get(`/api/profile/user/${id}`)
+      .then((response) => {
+        if (response.data.errors) return Promise.reject(response);
+
+        dispatch({
+          type: GET_PROFILE,
+          payload: response.data,
+        });
+      })
+      .catch((err) => {
+        // if (err.data.errors) {
+        //   let errors = err.data.errors;
+        //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+        // }
+        dispatch({
+          type: PROFILE_ERROR,
+          payload: {
+            msg: err.response.statusText,
+            status: err.response.status,
+          },
+        });
+      });
+  } catch (err) {
+    console.log("Get all Profiles Error");
   }
 };
 
@@ -265,5 +330,37 @@ export const deleteAccount = () => async (dispatch) => {
     } catch (err) {
       console.log("Delete Education Error");
     }
+  }
+};
+
+//Get  Github repos
+export const getGithubRepos = (username) => async (dispatch) => {
+  try {
+    const res = axios
+      .get(`/api/profile/github/${username}`)
+      .then((response) => {
+        if (response.data.errors) return Promise.reject(response);
+
+        dispatch({
+          type: GET_REPOS,
+          payload: response.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err, "git");
+        // if (err.data.errors) {
+        //   let errors = err.data.errors;
+        //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+        // }
+        dispatch({
+          type: PROFILE_ERROR,
+          payload: {
+            msg: "cannot connect",
+            status: err.response.status,
+          },
+        });
+      });
+  } catch (err) {
+    console.log("Get all Profiles Error");
   }
 };
