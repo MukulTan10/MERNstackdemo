@@ -60,7 +60,7 @@ router.get("/:id", auth, async (req, res) => {
     const posts = await postModel.findById(req.params.id);
     if (!posts) return res.status(404).json({ msg: "no post found" });
 
-    return res.json(posts);
+    return res.status(200).json(posts);
   } catch (err) {
     if (err.kind === "ObjectId")
       return res.status(404).json({ msg: "no post found" });
