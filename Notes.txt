@@ -38,3 +38,5 @@ so adding in client package.json file
 ---------------------------------------------------------
 
 Redux Thunk is a middleware that lets you call action creators that return a function instead of an action object
+
+Random Sentence to be added.
